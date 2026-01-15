@@ -1,5 +1,5 @@
 
-# API de Duplicatas Escriturais
+# API de Duplicatas Escriturais DUPEX
 
 API RESTful para gerenciamento de duplicatas escriturais (emissão, aceite e liquidação).
 
