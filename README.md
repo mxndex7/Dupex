@@ -1,9 +1,15 @@
 
 # API de Duplicatas Escriturais
 
-API RESTful para gerenciamento de duplicatas escriturais (emissão, aceite e liquidação).
+### API RESTful para gerenciamento de duplicatas escriturais (emissão, aceite e liquidação).
 
-![Capa](slide%20dupex/1.jpg)
+![Capa](https://github.com/mxndex7/Dupex/blob/main/Slide%20Dupex/1.jpg)
+
+### 1. Contexto Geral do Sistema
+
+![contexto](https://github.com/mxndex7/Dupex/blob/main/Slide%20Dupex/2.jpg)
+
+
 
 ## Endpoints
 
