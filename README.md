@@ -3,6 +3,8 @@
 
 API RESTful para gerenciamento de duplicatas escriturais (emissão, aceite e liquidação).
 
+![Capa](slide%20dupex/1.jpg)
+
 ## Endpoints
 
 ### 1. Criar Duplicata
