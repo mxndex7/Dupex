@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dupex — Duplicatas escriturais</title>
+  <meta name="description" content="Painel para emitir, aceitar e liquidar duplicatas escriturais.">
+  <link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="/static/fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/static/app.css">
+</head>
+<body>
+  <a class="pular" href="#conteudo">Ir para o conteúdo</a>
+
+  <main id="conteudo">
+    <!-- Entrar / criar conta -->
+    <section id="tela-login" class="login" hidden>
+      <div class="login-miolo">
+        <p class="marca marca-grande">
+          <svg class="marca-seta" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19 19 5M8 5h11v11" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>dupex</span>
+        </p>
+        <h1 class="login-titulo">Emita, acompanhe e liquide duplicatas escriturais.</h1>
+
+        <div class="abas" role="tablist" aria-label="Acesso">
+          <button type="button" role="tab" id="aba-entrar" aria-selected="true" aria-controls="form-login">Entrar</button>
+          <button type="button" role="tab" id="aba-criar" aria-selected="false" aria-controls="form-login" tabindex="-1">Criar conta</button>
+        </div>
+
+        <form id="form-login" role="tabpanel" aria-labelledby="aba-entrar" novalidate>
+          <div class="campo">
+            <label for="login-usuario">Usuário</label>
+            <input id="login-usuario" name="username" autocomplete="username" autocapitalize="none" spellcheck="false" required>
+          </div>
+          <div class="campo">
+            <label for="login-senha">Senha</label>
+            <input id="login-senha" name="password" type="password" autocomplete="current-password" required>
+            <p class="dica" id="dica-senha" hidden>Mínimo de 8 caracteres.</p>
+          </div>
+          <p class="erro-form" id="erro-login" role="alert" hidden></p>
+          <button class="botao botao-primario botao-bloco" type="submit" id="enviar-login">Entrar</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Painel -->
+    <section id="tela-painel" hidden>
+      <header class="topo">
+        <p class="marca">
+          <svg class="marca-seta" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19 19 5M8 5h11v11" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>dupex</span>
+        </p>
+        <div class="topo-usuario">
+          <span id="nome-usuario"></span>
+          <button type="button" class="botao botao-leve" id="sair">Sair</button>
+        </div>
+      </header>
+
+      <div class="painel">
+        <div class="painel-cabeca">
+          <h1>Duplicatas</h1>
+          <button type="button" class="botao botao-primario" id="abrir-emitir">Emitir duplicata</button>
+        </div>
+
+        <div class="filtros" role="tablist" aria-label="Filtrar por status" id="filtros"></div>
+
+        <div class="tabela-area" id="tabela-area" aria-busy="false">
+          <table class="tabela" role="table">
+            <caption class="so-leitor" id="legenda-tabela">Lista de duplicatas</caption>
+            <thead>
+              <tr role="row">
+                <th role="columnheader" scope="col">Número</th>
+                <th role="columnheader" scope="col">Sacado</th>
+                <th role="columnheader" scope="col">Vencimento</th>
+                <th role="columnheader" scope="col" class="num">Valor</th>
+                <th role="columnheader" scope="col">Situação</th>
+              </tr>
+            </thead>
+            <tbody id="corpo-tabela"></tbody>
+          </table>
+          <div class="vazio" id="vazio" hidden>
+            <p class="vazio-titulo" id="vazio-titulo"></p>
+            <p class="vazio-texto" id="vazio-texto"></p>
+            <button type="button" class="botao botao-primario" id="vazio-acao" hidden>Emitir duplicata</button>
+          </div>
+        </div>
+
+        <nav class="paginacao" id="paginacao" aria-label="Paginação" hidden>
+          <p id="paginacao-resumo"></p>
+          <div class="paginacao-botoes">
+            <button type="button" class="botao botao-leve" id="pagina-anterior">Anterior</button>
+            <button type="button" class="botao botao-leve" id="pagina-proxima">Próxima</button>
+          </div>
+        </nav>
+      </div>
+    </section>
+  </main>
+
+  <!-- Emitir duplicata -->
+  <dialog id="dlg-emitir" aria-labelledby="emitir-titulo">
+    <form id="form-emitir" novalidate>
+      <div class="dlg-cabeca">
+        <h2 id="emitir-titulo">Emitir duplicata</h2>
+        <button type="button" class="fechar" data-fechar aria-label="Fechar">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+
+      <div class="dlg-corpo">
+        <div class="campo">
+          <label for="f-numero">Número</label>
+          <input id="f-numero" name="numero" maxlength="30" autocomplete="off" required aria-describedby="erro-numero">
+          <p class="erro-campo" id="erro-numero" hidden></p>
+        </div>
+        <div class="campo">
+          <label for="f-valor">Valor (R$)</label>
+          <input id="f-valor" name="valor" inputmode="decimal" autocomplete="off" placeholder="1.500,00" required aria-describedby="erro-valor">
+          <p class="erro-campo" id="erro-valor" hidden></p>
+        </div>
+        <div class="campo">
+          <label for="f-emitente">Emitente</label>
+          <input id="f-emitente" name="emitente" maxlength="120" autocomplete="off" required aria-describedby="erro-emitente">
+          <p class="erro-campo" id="erro-emitente" hidden></p>
+        </div>
+        <div class="campo">
+          <label for="f-sacado">Sacado</label>
+          <input id="f-sacado" name="sacado" maxlength="120" autocomplete="off" required aria-describedby="erro-sacado">
+          <p class="erro-campo" id="erro-sacado" hidden></p>
+        </div>
+        <div class="campo">
+          <label for="f-vencimento">Vencimento</label>
+          <input id="f-vencimento" name="data_vencimento" type="date" required aria-describedby="erro-data_vencimento">
+          <p class="erro-campo" id="erro-data_vencimento" hidden></p>
+        </div>
+        <p class="erro-form" id="erro-emitir" role="alert" hidden></p>
+      </div>
+
+      <div class="dlg-rodape">
+        <button type="button" class="botao botao-leve" data-fechar>Voltar</button>
+        <button type="submit" class="botao botao-primario" id="enviar-emitir">Emitir duplicata</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Detalhe da duplicata -->
+  <dialog id="dlg-detalhe" class="gaveta" aria-labelledby="detalhe-titulo">
+    <div class="dlg-cabeca">
+      <h2 id="detalhe-titulo"></h2>
+      <button type="button" class="fechar" data-fechar aria-label="Fechar">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div class="dlg-corpo" id="detalhe-corpo"></div>
+  </dialog>
+
+  <div class="avisos" id="avisos" role="status" aria-live="polite" popover="manual"></div>
+
+  <script src="/static/app.js" defer></script>
+</body>
+</html>

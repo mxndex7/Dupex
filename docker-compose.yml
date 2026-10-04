@@ -1,0 +1,15 @@
+services:
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      # Defina no .env (veja .env.example). Sem a chave o compose se recusa a subir.
+      DUPEX_SECRET_KEY: ${DUPEX_SECRET_KEY:?Defina DUPEX_SECRET_KEY no arquivo .env}
+      DUPEX_ALLOW_REGISTRATION: ${DUPEX_ALLOW_REGISTRATION:-true}
+    volumes:
+      - dupex-data:/app/data
+    restart: unless-stopped
+
+volumes:
+  dupex-data:

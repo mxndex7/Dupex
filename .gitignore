@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+
+# Configuração local e segredos
+.env
+
+# Banco de dados local
+data/*
+!data/.gitkeep
+*.db
+*.sqlite3
+
+# Editor / sistema
+.vscode/
+.idea/
+.DS_Store

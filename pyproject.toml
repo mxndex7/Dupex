@@ -1,0 +1,22 @@
+[project]
+name = "dupex"
+version = "2.0.0"
+description = "API RESTful para duplicatas escriturais (emissão, aceite e liquidação)."
+requires-python = ">=3.11"
+license = "MIT"
+authors = [{ name = "Guilherme Mendes" }]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+extend-exclude = ["migrations/versions"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+
+[tool.ruff.lint.per-file-ignores]
+"app/api/routers/*" = ["B008"]
