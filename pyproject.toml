@@ -3,6 +3,8 @@ name = "dupex"
 version = "2.0.0"
 description = "API RESTful para duplicatas escriturais (emissão, aceite e liquidação)."
 requires-python = ">=3.11"
+license = "MIT"
+authors = [{ name = "Guilherme Mendes" }]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

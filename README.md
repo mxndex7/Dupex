@@ -3,6 +3,7 @@
 [![CI](https://github.com/mxndex7/Dupex/actions/workflows/ci.yml/badge.svg)](https://github.com/mxndex7/Dupex/actions/workflows/ci.yml)
 ![Python](https://img.shields.io/badge/python-3.11%2B-blue)
 ![FastAPI](https://img.shields.io/badge/FastAPI-009688)
+![Licença](https://img.shields.io/badge/licen%C3%A7a-MIT-green)
 
 API RESTful para **duplicatas escriturais**: emissão, aceite e liquidação de títulos de crédito em formato digital, com autenticação JWT, migrações de banco, testes automatizados e um painel web incluído.
 
@@ -163,3 +164,9 @@ O CI (GitHub Actions) roda lint e testes em Python 3.11, 3.12 e 3.13 e faz o bui
 - [ ] **Rate limiting** nas rotas de login e cadastro.
 - [ ] **Token em cookie `HttpOnly`.** O painel guarda o JWT em `sessionStorage`, que é prático mas exposto a XSS. Não há refresh token.
 - [ ] Mensagens de validação da API em português (hoje o painel as traduz no cliente).
+
+## Autor e licença
+
+Desenvolvido por **Guilherme Mendes** ([@mxndex7](https://github.com/mxndex7)).
+
+Distribuído sob a licença MIT. Veja o arquivo [LICENSE](LICENSE). A fonte Schibsted Grotesk, em `app/static/fonts/`, mantém a própria licença (SIL OFL 1.1), incluída na mesma pasta.
